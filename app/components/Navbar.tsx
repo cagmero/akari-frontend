@@ -46,18 +46,14 @@ export default function Navbar() {
           <nav className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 group">
-              <Image
-                src="/akari_icon_logo.svg"
+              <img
+                src="/akari_icon_logo_cropped.png"
                 alt="Akari"
-                width={28}
-                height={28}
                 className="w-7 h-7"
               />
-              <Image
-                src="/akari_english_logo.svg"
+              <img
+                src="/akari_english_logo_cropped.png"
                 alt="Akari"
-                width={80}
-                height={28}
                 className="h-7 w-auto"
               />
             </Link>
@@ -79,7 +75,7 @@ export default function Navbar() {
                 className="ml-4 px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300"
                 style={{
                   backgroundColor: "var(--brand-base)",
-                  color: "var(--brand-foreground)",
+                  color: "#ffffff",
                 }}
               >
                 Join Waitlist
@@ -136,7 +132,7 @@ export default function Navbar() {
                   href="/waitlist"
                   onClick={() => setMobileOpen(false)}
                   className="mt-4 px-8 py-3 rounded-xl text-lg font-medium"
-                  style={{ backgroundColor: "var(--brand-base)", color: "var(--brand-foreground)" }}
+                  style={{ backgroundColor: "var(--brand-base)", color: "#ffffff" }}
                 >
                   Join Waitlist
                 </Link>

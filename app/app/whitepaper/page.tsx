@@ -12,7 +12,6 @@ const SECTIONS = [
   { id: "oracle-relay", label: "Oracle & Relay", icon: Code },
   { id: "yield-router", label: "Yield Router", icon: Layers },
   { id: "technical-constraints", label: "Technical Constraints", icon: Code },
-  { id: "deployment", label: "Deployment Order", icon: Code },
 ];
 
 const CODE_BLOCKS = {
@@ -324,34 +323,6 @@ export default function WhitepaperPage() {
                   ))}
                 </div>
               </Section>
-
-              {/* Deployment */}
-              <Section id="deployment" title="Deployment Order">
-                <p className="text-body leading-relaxed mb-6" style={{ color: "var(--text-secondary)" }}>
-                  The following order must be followed for a clean deployment on Solana Devnet:
-                </p>
-                <ol className="space-y-3 list-decimal list-inside">
-                  {[
-                    "anchor build — ensure clean compilation of both programs",
-                    "anchor deploy --program-name transfer_hook — record Program ID",
-                    "anchor deploy --program-name akari — record Program ID",
-                    "anchor idl init for both programs",
-                    "ts-node scripts/setup-devnet.ts — initialize_pool, initialize_oracle_relay_lock, initialize_epoch_state ×2",
-                    "ts-node merkle-tools/build-tree.ts — build initial Merkle tree",
-                    "ts-node merkle-tools/update-root.ts — submit root to on-chain KycMerkleRoot",
-                    "ts-node scripts/seed-subsidiaries.ts — register initial subsidiaries",
-                    "Start primary oracle relay and standby instance",
-                    "cd app && npm run dev — start Next.js dashboard",
-                  ].map((step, i) => (
-                    <li key={i} className="text-sm pl-4" style={{ color: "var(--text-secondary)" }}>
-                      <span className="font-mono text-xs mr-2" style={{ color: "var(--brand-base)" }}>
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      {step}
-                    </li>
-                  ))}
-                </ol>
-              </Section>
             </motion.div>
           </main>
         </div>
@@ -364,7 +335,7 @@ export default function WhitepaperPage() {
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
-    <section id="{id}" className="mb-16 scroll-mt-28">
+    <section id={id} className="mb-16 scroll-mt-28">
       <h2 className="text-h2 font-display mb-6 pb-4 border-b" style={{ color: "var(--text-primary)", borderColor: "var(--border-light)" }}>
         {title}
       </h2>

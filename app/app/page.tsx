@@ -3,7 +3,7 @@
 import HeroSection from "@/components/HeroSection";
 import ValuePropsSection from "@/components/ValuePropsSection";
 import VisualArchitecture from "@/components/VisualArchitecture";
-import PartnersSection from "@/components/PartnersSection";
+import InfrastructureSection from "@/components/InfrastructureSection";
 import CTASection from "@/components/CTASection";
 
 export default function HomePage() {
@@ -12,7 +12,7 @@ export default function HomePage() {
       <HeroSection />
       <ValuePropsSection />
       <VisualArchitecture />
-      <PartnersSection />
+      <InfrastructureSection />
       <CTASection />
     </>
   );

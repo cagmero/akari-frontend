@@ -22,18 +22,14 @@ export default function Footer() {
             viewport={{ once: true }}
             className="flex items-center gap-2"
           >
-            <Image
-              src="/akari_icon_logo.svg"
+            <img
+              src="/akari_icon_logo_cropped.png"
               alt="Akari"
-              width={24}
-              height={24}
               className="w-6 h-6"
             />
-            <Image
-              src="/akari_english_logo.svg"
+            <img
+              src="/akari_english_logo_cropped.png"
               alt="Akari"
-              width={70}
-              height={24}
               className="h-6 w-auto"
             />
           </motion.div>

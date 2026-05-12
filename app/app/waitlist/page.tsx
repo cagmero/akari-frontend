@@ -74,6 +74,7 @@ export default function WaitlistPage() {
               <input
                 type="text"
                 value={form.name}
+                placeholder=""
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className="input-glass"
               />
@@ -88,6 +89,7 @@ export default function WaitlistPage() {
               <input
                 type="email"
                 value={form.email}
+                placeholder=""
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className="input-glass"
               />
@@ -102,6 +104,7 @@ export default function WaitlistPage() {
               <input
                 type="text"
                 value={form.entity}
+                placeholder=""
                 onChange={(e) => setForm({ ...form, entity: e.target.value })}
                 className="input-glass"
               />
@@ -116,6 +119,7 @@ export default function WaitlistPage() {
               <input
                 type="text"
                 value={form.location}
+                placeholder=""
                 onChange={(e) => setForm({ ...form, location: e.target.value })}
                 className="input-glass"
               />
@@ -133,12 +137,11 @@ export default function WaitlistPage() {
                 className="input-glass appearance-none"
               >
                 <option value="">Select range</option>
-                <option value="<100K">Under $100K</option>
-                <option value="100K-500K">$100K — $500K</option>
-                <option value="500K-1M">$500K — $1M</option>
+                <option value="<50K">Under $50K</option>
+                <option value="50K-250K">$50K — $250K</option>
+                <option value="250K-1M">$250K — $1M</option>
                 <option value="1M-5M">$1M — $5M</option>
-                <option value="5M-10M">$5M — $10M</option>
-                <option value="10M+">$10M+</option>
+                <option value="5M+">$5M+</option>
               </select>
             </motion.div>
 

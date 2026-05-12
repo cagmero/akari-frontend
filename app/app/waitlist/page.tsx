@@ -17,6 +17,7 @@ export default function WaitlistPage() {
     volume: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validate = () => {
@@ -33,11 +34,34 @@ export default function WaitlistPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    // Simulate API call
-    setSubmitted(true);
+    
+    setIsSubmitting(true);
+    setErrors({});
+    
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit application');
+      }
+      
+      setSubmitted(true);
+    } catch (err: any) {
+      setErrors({ submit: err.message || 'An error occurred. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -145,14 +169,21 @@ export default function WaitlistPage() {
               </select>
             </motion.div>
 
+            {errors.submit && (
+              <p className="text-sm text-center mt-2" style={{ color: "var(--state-error)" }}>
+                {errors.submit}
+              </p>
+            )}
+
             <motion.button
               variants={fadeInUp}
               type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold transition-all duration-300 group"
+              disabled={isSubmitting}
+              className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold transition-all duration-300 group disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ backgroundColor: "var(--brand-base)", color: "var(--brand-foreground)" }}
             >
-              <span>Submit Application</span>
-              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <span>{isSubmitting ? "Submitting..." : "Submit Application"}</span>
+              {!isSubmitting && <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />}
             </motion.button>
 
             <p className="text-xs text-center" style={{ color: "var(--text-muted)" }}>

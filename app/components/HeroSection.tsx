@@ -43,20 +43,6 @@ export default function HeroSection() {
 
       <div className="max-w-content mx-auto px-4 sm:px-6 lg:px-8 py-32 sm:py-40">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          {/* Overline */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mb-6"
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-widest uppercase"
-              style={{ backgroundColor: "var(--surface-subtle)", color: "var(--brand-base)", border: "1px solid var(--border-light)" }}
-            >
-              <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: "var(--brand-base)" }} />
-              Solana Devnet
-            </span>
-          </motion.div>
 
           {/* Headline */}
           <h1 className="text-hero font-display mb-6 tracking-tight" style={{ color: "var(--text-primary)" }}>

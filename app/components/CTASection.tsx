@@ -46,13 +46,6 @@ export default function CTASection() {
             <span>Reserve a Pilot Seat</span>
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
-          <Link
-            href="/whitepaper"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-sm font-semibold transition-all duration-300 border"
-            style={{ borderColor: "var(--border-medium)", color: "var(--text-primary)" }}
-          >
-            Read the Documentation
-          </Link>
         </div>
       </motion.div>
     </section>

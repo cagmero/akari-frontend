@@ -103,7 +103,6 @@ export default function ValuePropsSection() {
                     {prop.metricLabel}
                   </div>
                 </div>
-                <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" style={{ color: "var(--text-muted)" }} />
               </div>
             </motion.div>
           ))}

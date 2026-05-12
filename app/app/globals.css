@@ -1,0 +1,287 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  ==========================================
+  Color System: Tokenized for multi-theme support.
+  Themes: 'light' (default), 'dark' (via class or media query).
+  ==========================================
+  Usage: Always use the semantic tokens (background-*, text-*, border-*, surface-*)
+         so that themes can switch seamlessly without touching individual components.
+*/
+
+@layer base {
+  :root,
+  html.light {
+    /* Brand Palette: Swiss Banking Navy */
+    --brand-base: #3A506B;
+    --brand-light: #5988A3;
+    --brand-lighter: #8CABBF;
+    --brand-dark: #273A4D;
+    --brand-foreground: #FFFFFF;
+
+    /* Logo Colors */
+    --logo-mark: #3A506B;
+    --logo-text: #273A4D;
+
+    /* Surfaces */
+    --background: #F6F4F0;          /* Soft warm off-white (50, 52, 240) */
+    --surface: #FFFFFF;             /* Pure white for cards */
+    --surface-elevated: #F0EDE8;  /* Elevated panels (40, 46, 237) */
+    --surface-subtle: #E8E5E0;    /* Subtle backgrounds */
+    --surface-inverse: #273A4D;   /* Dark panels */
+    --text-primary: #1A202C;        /* Near-black for maximum contrast */
+    --text-secondary: #4A5568;      /* Charcoal gray */
+    --text-inverse: #F7FAFC;       /* Off-white for dark backgrounds */
+    --text-muted: #A0AEC0;          /* Muted / placeholders */
+    --text-placeholder: #CBD5E0;    /* Input hints */
+
+    /* Borders */
+    --border-light: #E2E8F0;
+    --border-medium: #CBD5E0;
+    --border-brand: #3A506B;
+    --border-strong: #1A202C;
+
+    /* Semantic States */
+    --state-success: #38A169;
+    --state-error: #E53E3E;
+    --state-warning: #D69E2E;
+    --state-info: #3182CE;
+
+    /* Syntax (for whitepaper / code blocks) */
+    --syntax-keyword: #2B6CB0;
+    --syntax-string: #38A169;
+    --syntax-comment: #A0AEC0;
+    --syntax-number: #D69E2E;
+
+    /* Typography */
+    --font-inter: 'Inter', system-ui, sans-serif;
+    --font-display: 'Newsreader', ui-serif, serif;
+  }
+
+  html.dark {
+    /* Brand Palette (Dark Mode) */
+    --brand-base: #5C85A3;
+    --brand-light: #8CABBF;
+    --brand-lighter: #AECBDB;
+    --brand-dark: #3A506B;
+    --brand-foreground: #1A202C;
+
+    /* Logo Colors (Dark Mode) */
+    --logo-mark: #5C85A3;
+    --logo-text: #F7FAFC;
+
+    /* Surfaces (Dark) */
+    --background: #0D1117;
+    --surface: #161B22;
+    --surface-elevated: #1C2128;
+    --surface-subtle: #21262D;
+    --surface-inverse: #F6F4F0;
+    --text-primary: #F7FAFC;
+    --text-secondary: #9CA3AF;
+    --text-inverse: #1A202C;
+    --text-muted: #6B7280;
+    --text-placeholder: #4B5563;
+
+    /* Borders (Dark) */
+    --border-light: #21262D;
+    --border-medium: #30363D;
+    --border-brand: #5C85A3;
+    --border-strong: #58A6FF;
+
+    /* Syntax (Dark) */
+    --syntax-keyword: #79C0FF;
+    --syntax-string: #A5D6A7;
+    --syntax-comment: #8B949E;
+    --syntax-number: #FFA726;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Selection Styling */
+  ::selection {
+    background-color: var(--brand-base);
+    color: var(--brand-foreground);
+  }
+
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-medium);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-base);
+  }
+}
+
+@layer components {
+  /* --- Glass System --- */
+  .glass {
+    @apply backdrop-blur-xl bg-white/60 border border-white/20;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  .glass-strong {
+    @apply backdrop-blur-2xl bg-white/70 border border-white/30;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+  .glass-card {
+    @apply backdrop-blur-xl bg-white/50 border border-white/10 rounded-2xl;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  .glass-card-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+  .glass-card-hover:hover {
+    @apply bg-white/70 border-white/30;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+  }
+  .glass-dark {
+    @apply backdrop-blur-xl bg-slate-900/40 border border-white/10;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  .glass-border {
+    @apply border border-white/20;
+  }
+  .glass-border-glow {
+    @apply border border-white/20;
+    box-shadow: 0 0 20px rgba(58, 80, 107, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  /* --- Bento Grid System --- */
+  .bento-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 auto-rows-[180px];
+  }
+  .bento-card {
+    @apply relative overflow-hidden rounded-2xl p-6;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.0.2, 1);
+  }
+  .bento-card:hover {
+    background: rgba(255, 255, 255, 0.75);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transform: translateY(-4px);
+  }
+  .bento-card-featured {
+    @apply bento-card;
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  /* --- Layout System --- */
+  .section {
+    @apply w-full py-20 md:py-32;
+  }
+  .section-inner {
+    @apply max-w-content mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .section-narrow {
+    @apply max-w-narrow mx-auto px-4 sm:px-6;
+  }
+
+  /* --- Button System --- */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-300;
+    background-color: var(--brand-base);
+    color: var(--brand-foreground);
+  }
+  .btn-primary:hover {
+    background-color: var(--brand-dark);
+    box-shadow: 0 4px 20px rgba(58, 80, 107, 0.3);
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium border transition-all duration-300;
+    border-color: var(--border-medium);
+    color: var(--text-primary);
+  }
+  .btn-secondary:hover {
+    background-color: var(--surface-subtle);
+    border-color: var(--brand-base);
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-300;
+    color: var(--text-secondary);
+  }
+  .btn-ghost:hover {
+    color: var(--text-primary);
+    background-color: var(--surface-elevated);
+  }
+
+  /* --- Typography System --- */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, var(--brand-base), var(--brand-light));
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  /* --- Code / Whitepaper --- */
+  .code-block {
+    @apply rounded-xl p-4 font-mono text-sm overflow-x-auto;
+    background-color: var(--surface);
+    border: 1px solid var(--border-light);
+  }
+  .info-card {
+    @apply rounded-xl p-5 border-l-4;
+    background-color: var(--surface-elevated);
+    border-left-color: var(--brand-base);
+  }
+
+  /* --- Form Inputs --- */
+  .input-glass {
+    @apply w-full px-4 py-3 rounded-xl bg-white/40 border transition-all duration-300;
+    border-color: var(--border-light);
+  }
+  .input-glass:focus {
+    @apply outline-none ring-2;
+    border-color: var(--brand-base);
+    ring-color: var(--brand-light);
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* --- Animation Utilities --- */
+  .animate-fade-up {
+    @apply opacity-0 translate-y-6;
+    animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  @keyframes fadeUp {
+    to {
+      @apply opacity-100 translate-y-0;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}

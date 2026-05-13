@@ -32,34 +32,58 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Failed to save waitlist entry' }, { status: 500 });
     }
 
-    // 2. Send notification via Loops.so
+    // 2. Send event to Loops.so to trigger the Welcome Email workflow for the user
     const loopsApiKey = process.env.LOOPS_API_KEY;
-    const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL;
 
-    if (loopsApiKey && adminEmail) {
-      // Send event to Loops.so to trigger a Loop (or you can use /api/v1/transactional)
-      const loopsResponse = await fetch('https://app.loops.so/api/v1/events/send', {
+    if (loopsApiKey) {
+      // Trigger the workflow for the user who signed up
+      const userLoopsResponse = await fetch('https://app.loops.so/api/v1/events/send', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${loopsApiKey}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          email: adminEmail,
-          eventName: 'New Waitlist Submission',
+          email: email, // Target the user's email to send them the welcome email
+          eventName: 'Waitlist Joined', // Standard event name to trigger workflow in Loops
           eventProperties: {
-            submitterName: name,
-            submitterEmail: email,
-            entity,
-            location,
-            volume
+            name: name,
+            entity: entity,
+            location: location,
+            volume: volume
           }
         })
       });
 
-      if (!loopsResponse.ok) {
-        console.error('Loops API error:', await loopsResponse.text());
-        // We log the error but don't fail the user request since the DB save succeeded
+      if (!userLoopsResponse.ok) {
+        console.error('Loops User Event API error:', await userLoopsResponse.text());
+      }
+
+      // Optional: Also send notification event to Admin if configured
+      const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL;
+      if (adminEmail) {
+        const adminLoopsResponse = await fetch('https://app.loops.so/api/v1/events/send', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${loopsApiKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: adminEmail,
+            eventName: 'New Waitlist Submission',
+            eventProperties: {
+              submitterName: name,
+              submitterEmail: email,
+              entity,
+              location,
+              volume
+            }
+          })
+        });
+
+        if (!adminLoopsResponse.ok) {
+          console.error('Loops Admin Event API error:', await adminLoopsResponse.text());
+        }
       }
     }
 
